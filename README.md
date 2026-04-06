@@ -157,4 +157,69 @@ class Program
 Each iteration shows the current contents of the list.
 Infinite loop (while (true)) lets the user continue managing the list until they manually close the program.
 
+**3.Write a method that calculates all prime numbers in given range and returns them as array
+of integers
+static int[] FindPrimesInRange(startNum, endNum)**
 
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] primes = FindPrimesInRange(10, 50);
+
+        foreach (int p in primes)
+        {
+            Console.Write(p + " ");
+        }
+    }
+
+    static int[] FindPrimesInRange(int startNum, int endNum)
+    {
+        int count = 0;
+
+        // First pass: count primes
+        for (int num = startNum; num <= endNum; num++)
+        {
+            if (IsPrime(num))
+                count++;
+        }
+
+        // Create array with exact size
+        int[] primes = new int[count];
+        int index = 0;
+
+        // Second pass: store primes
+        for (int num = startNum; num <= endNum; num++)
+        {
+            if (IsPrime(num))
+            {
+                primes[index] = num;
+                index++;
+            }
+        }
+
+        return primes;
+    }
+
+    static bool IsPrime(int num)
+    {
+        if (num < 2) return false;
+
+        for (int i = 2; i * i <= num; i++)
+        {
+            if (num % i == 0)
+                return false;
+        }
+
+        return true;
+    }
+}
+
+**EXPLANATION**
+
+Loop through all numbers from startNum to endNum.
+For each number, check if it’s divisible by any number from 2 to sqrt(num).
+If not divisible, it’s a prime → add to the list.
+Convert the List<int> to int[] and return.
