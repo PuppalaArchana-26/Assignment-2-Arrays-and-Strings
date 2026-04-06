@@ -36,3 +36,38 @@ Normal strongly-typed arrays like int[] cannot store different types.
 
 Array.CopyTo() copies the elements of an array into an existing array
 while Array.Clone() creates a new array that is a shallow copy of the original.
+
+**ARRAYS**
+1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Step 1: Create the original array with 10 items
+        int[] originalArray = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        // Step 2: Create a second array with the same length as the first using Length property
+        int[] copyArray = new int[originalArray.Length];
+
+        // Step 3: Use a loop to copy elements from originalArray to copyArray
+        for (int i = 0; i < originalArray.Length; i++)
+        {
+            copyArray[i] = originalArray[i];
+        }
+
+        // Step 4: Print both arrays to verify
+        Console.WriteLine("Original Array:");
+        foreach (int item in originalArray)
+        {
+            Console.Write(item + " ");
+        }
+
+        Console.WriteLine("\nCopied Array:");
+        foreach (int item in copyArray)
+        {
+            Console.Write(item + " ");
+        }
+    }
+}
