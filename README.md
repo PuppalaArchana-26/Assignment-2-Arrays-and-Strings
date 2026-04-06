@@ -361,3 +361,118 @@ printing the leftmost if multiple numbers have the same maximal frequency:
 Use a Dictionary<int,int> to count occurrences.
 Track maxCount and update mostFrequent only when a higher count appears.
 Ties automatically keep the first/leftmost number.
+
+**STRINGS**
+1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Read input string
+        string input = Console.ReadLine();
+
+        // --- Method 1: Using char array ---
+        char[] charArray = input.ToCharArray();
+        Array.Reverse(charArray);
+        string reversed1 = new string(charArray);
+        Console.WriteLine(reversed1);
+
+        // --- Method 2: Using for-loop from last to first ---
+        string reversed2 = "";
+        for (int i = input.Length - 1; i >= 0; i--)
+        {
+            reversed2 += input[i];
+        }
+        Console.WriteLine(reversed2);
+    }
+}
+
+**2.**
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        // Read input sentence
+        string input = Console.ReadLine();
+
+        // Define separators
+        char[] separators = { '.', ',', ':', ';', '=', '(', ')', '&', '[', ']', '"', '\'', '\\', '/', '!', '?', ' ' };
+
+        List<string> words = new List<string>();
+        List<string> separatorsList = new List<string>();
+
+        StringBuilder currentWord = new StringBuilder();
+        StringBuilder currentSep = new StringBuilder();
+
+        // Split input into words and separators
+        foreach (char c in input)
+        {
+            if (Array.Exists(separators, s => s == c))
+            {
+                if (currentWord.Length > 0)
+                {
+                    words.Add(currentWord.ToString());
+                    currentWord.Clear();
+                }
+                currentSep.Append(c);
+            }
+            else
+            {
+                if (currentSep.Length > 0)
+                {
+                    separatorsList.Add(currentSep.ToString());
+                    currentSep.Clear();
+                }
+                currentWord.Append(c);
+            }
+        }
+
+        // Add the last word or separator if any
+        if (currentWord.Length > 0) words.Add(currentWord.ToString());
+        if (currentSep.Length > 0) separatorsList.Add(currentSep.ToString());
+
+        // Reverse words
+        words.Reverse();
+
+        // Reconstruct sentence
+        StringBuilder result = new StringBuilder();
+        int w = 0, s = 0;
+
+        // Sentences always start with word
+        while (w < words.Count || s < separatorsList.Count)
+        {
+            if (w < words.Count)
+            {
+                result.Append(words[w]);
+                w++;
+            }
+            if (s < separatorsList.Count)
+            {
+                result.Append(separatorsList[s]);
+                s++;
+            }
+        }
+
+        Console.WriteLine(result.ToString());
+    }
+}
+
+Separators are defined as . , : ; = ( ) & [ ] " ' \ / ! ? and space.
+Scan input character by character:
+Build words when not a separator
+Build separator strings when separator found
+Reverse the list of words.
+Reconstruct the sentence by alternating word and separator.
+This ensures that punctuation and spaces remain exactly where they were, only the words are reversed.
+
+
+
+
+
