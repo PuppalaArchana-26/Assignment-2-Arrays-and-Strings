@@ -530,6 +530,52 @@ Use HashSet<string> to store unique palindromes.
 Sort them alphabetically (case-insensitive) and print separated by comma.
 The original casing order but still removes duplicates, which matches the input order instead of sorting.
 
+**4.**
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string url = Console.ReadLine();
+
+        string protocol = "";
+        string server = "";
+        string resource = "";
+
+        int protocolEndIndex = url.IndexOf("://");
+
+        if (protocolEndIndex != -1)
+        {
+            protocol = url.Substring(0, protocolEndIndex);
+            url = url.Substring(protocolEndIndex + 3); // Remove protocol part
+        }
+
+        int resourceStartIndex = url.IndexOf('/');
+
+        if (resourceStartIndex != -1)
+        {
+            server = url.Substring(0, resourceStartIndex);
+            resource = url.Substring(resourceStartIndex + 1);
+        }
+        else
+        {
+            server = url; // whole remaining string is server
+        }
+
+        Console.WriteLine($"[protocol] = \"{protocol}\"");
+        Console.WriteLine($"[server] = \"{server}\"");
+        Console.WriteLine($"[resource] = \"{resource}\"");
+    }
+}
+
+[protocol]://[server]/[resource] and extracts protocol, server, and resource. It handles all cases where protocol or resource may be missing.
+Check for :// to detect protocol.
+If present, extract protocol and remove it from URL string.
+Check for / to detect resource.
+Extract server (mandatory) and resource (optional).
+Print all three parts.
 
 
 
