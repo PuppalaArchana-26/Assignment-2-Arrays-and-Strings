@@ -578,6 +578,49 @@ Extract server (mandatory) and resource (optional).
 Print all three parts.
 
 
+**1. Strings in C#**
+
+**Definition:**
+
+A string in C# is an immutable sequence of characters, represented by the string keyword (or System.String).
+
+syntax: string s = "abc";
+
+**Key Points:**
+
+Strings are immutable: any operation that modifies a string actually creates a new string.
+Strings can be concatenated, compared, or formatted.
+Common methods: Length, Substring, IndexOf, Replace, ToUpper, ToLower, Split, Trim.
+
+**2. Arrays in C#**
+
+**Definition:**
+
+An array is a fixed-size collection of elements of the same type, stored in contiguous memory.
+
+syntax: int[] arr = {1,2,3};
+
+**Key Points:**
+
+Arrays have fixed size after creation.
+Can be single-dimensional, multi-dimensional, or jagged.
+Access elements using index starting from 0.
+Property Length gives the number of elements.
+
+**3. StringBuilder in C#**
+
+**Definition:**
+
+StringBuilder is a class in System.Text that allows mutable strings, which can be modified efficiently without creating new objects.
+
+syntax: StringBuilder sb = new StringBuilder();
+
+**Key Points:**
+
+Use StringBuilder when performing frequent modifications to strings.
+Supports methods like Append, Insert, Remove, Replace, Clear.
+More efficient than using string concatenation in loops.
+
 
 
 
