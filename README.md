@@ -223,3 +223,141 @@ Loop through all numbers from startNum to endNum.
 For each number, check if it’s divisible by any number from 2 to sqrt(num).
 If not divisible, it’s a prime → add to the list.
 Convert the List<int> to int[] and return.
+
+**4.**
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Read array input (space-separated)
+        string input = Console.ReadLine();
+        string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        int[] arr = new int[parts.Length];
+        for (int i = 0; i < parts.Length; i++)
+        {
+            arr[i] = int.Parse(parts[i]);
+        }
+
+        // Read k
+        int k = int.Parse(Console.ReadLine());
+
+        int n = arr.Length;
+        int[] sum = new int[n];
+
+        // Perform k rotations
+        for (int r = 1; r <= k; r++)
+        {
+            int[] rotated = new int[n];
+
+            // Rotate right
+            for (int i = 0; i < n; i++)
+            {
+                int newIndex = (i + r) % n;
+                rotated[newIndex] = arr[i];
+            }
+
+            // Add to sum array
+            for (int i = 0; i < n; i++)
+            {
+                sum[i] += rotated[i];
+            }
+        }
+
+        // Print result
+        Console.WriteLine(string.Join(" ", sum));
+    }
+}
+
+**5.**
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Read input array
+        string[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int[] arr = new int[input.Length];
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            arr[i] = int.Parse(input[i]);
+        }
+
+        int maxLength = 1;
+        int currentLength = 1;
+        int bestValue = arr[0];
+
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] == arr[i - 1])
+            {
+                currentLength++;
+            }
+            else
+            {
+                currentLength = 1;
+            }
+
+            if (currentLength > maxLength)
+            {
+                maxLength = currentLength;
+                bestValue = arr[i];
+            }
+        }
+
+        // Print result
+        for (int i = 0; i < maxLength; i++)
+        {
+            Console.Write(bestValue + " ");
+        }
+    }
+}
+
+**6.**
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Read input array
+        string[] input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int[] arr = Array.ConvertAll(input, int.Parse);
+
+        // Dictionary to store frequencies
+        Dictionary<int, int> freq = new Dictionary<int, int>();
+        int maxCount = 0;
+        int mostFrequent = arr[0];
+
+        foreach (int num in arr)
+        {
+            if (freq.ContainsKey(num))
+                freq[num]++;
+            else
+                freq[num] = 1;
+
+            // Update most frequent number
+            if (freq[num] > maxCount)
+            {
+                maxCount = freq[num];
+                mostFrequent = num;
+            }
+            // Tie: do nothing, we keep the leftmost
+        }
+
+        Console.WriteLine($"The number {mostFrequent} is the most frequent (occurs {maxCount} times)");
+    }
+}
+
+printing the leftmost if multiple numbers have the same maximal frequency:
+
+Use a Dictionary<int,int> to count occurrences.
+Track maxCount and update mostFrequent only when a higher count appears.
+Ties automatically keep the first/leftmost number.
