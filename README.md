@@ -472,6 +472,65 @@ Reverse the list of words.
 Reconstruct the sentence by alternating word and separator.
 This ensures that punctuation and spaces remain exactly where they were, only the words are reversed.
 
+**3.**
+
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+
+        // Define word separators using Regex (any non-word character)
+        string pattern = @"\b\w+\b"; // Matches sequences of letters/digits/underscores
+        MatchCollection matches = Regex.Matches(input, pattern);
+
+        HashSet<string> palindromes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (Match match in matches)
+        {
+            string word = match.Value;
+            if (IsPalindrome(word))
+            {
+                palindromes.Add(word);
+            }
+        }
+
+        // Sort palindromes (case-insensitive)
+        var sortedPalindromes = palindromes.OrderBy(x => x, StringComparer.OrdinalIgnoreCase);
+
+        Console.WriteLine(string.Join(", ", sortedPalindromes));
+    }
+
+    // Helper method to check palindrome
+    static bool IsPalindrome(string word)
+    {
+        int left = 0;
+        int right = word.Length - 1;
+
+        while (left < right)
+        {
+            if (char.ToLower(word[left]) != char.ToLower(word[right]))
+                return false;
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+Regex.Matches extracts all words (ignores punctuation).
+Each word is checked using IsPalindrome (case-insensitive).
+Use HashSet<string> to store unique palindromes.
+Sort them alphabetically (case-insensitive) and print separated by comma.
+The original casing order but still removes duplicates, which matches the input order instead of sorting.
+
+
 
 
 
