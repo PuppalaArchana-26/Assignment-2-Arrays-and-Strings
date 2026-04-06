@@ -71,3 +71,90 @@ class Program
         }
     }
 }
+
+**2.**
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Create an empty list to store items
+        List<string> myList = new List<string>();
+
+        // Infinite loop for user input
+        while (true)
+        {
+            Console.WriteLine("Enter command (+ item, - item, or -- to clear):");
+            string input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Invalid input. Try again.");
+                continue;
+            }
+
+            // Clear list if input is just "--"
+            if (input.Trim() == "--")
+            {
+                myList.Clear();
+                Console.WriteLine("List cleared.");
+            }
+            // Add item if input starts with "+"
+            else if (input.StartsWith("+"))
+            {
+                string itemToAdd = input.Substring(1).Trim();
+                if (!string.IsNullOrEmpty(itemToAdd))
+                {
+                    myList.Add(itemToAdd);
+                    Console.WriteLine($"Added: {itemToAdd}");
+                }
+            }
+            // Remove item if input starts with "-"
+            else if (input.StartsWith("-"))
+            {
+                string itemToRemove = input.Substring(1).Trim();
+                if (myList.Remove(itemToRemove))
+                {
+                    Console.WriteLine($"Removed: {itemToRemove}");
+                }
+                else
+                {
+                    Console.WriteLine($"Item not found: {itemToRemove}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid command. Use +, -, or --.");
+            }
+
+            // Display the current list
+            Console.WriteLine("Current list:");
+            if (myList.Count == 0)
+            {
+                Console.WriteLine("(empty)");
+            }
+            else
+            {
+                foreach (string item in myList)
+                {
+                    Console.WriteLine("- " + item);
+                }
+            }
+
+            Console.WriteLine(); // Empty line for readability
+        }
+    }
+}
+
+**How it works:**
+
++ item → Adds item to the list.
+- item → Removes item from the list if it exists.
+-- → Clears the list completely.
+Each iteration shows the current contents of the list.
+Infinite loop (while (true)) lets the user continue managing the list until they manually close the program.
+
+
